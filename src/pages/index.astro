@@ -1,11 +1,31 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<h1>Enviar Datos</h1>
+	<form method="post">
+		<label>
+			Nombre:
+			<input type="text" name="name" required />
+		</label>
+		<button type="submit">Enviar</button>
+	</form>
+
+
 </Layout>
+
+<button id="geeting">Get greeting</button>
+
+<script>
+	import { actions } from 'astro:actions';
+
+	const button = document.getElementById('geeting');
+	console.log(button);
+	button?.addEventListener('click', async () => {
+		console.log('click');
+		const { data, error } = await actions.getGreeting({ name: "Houston" });
+		if (!error) alert(data);
+		if (error) console.error(error);
+	});
+</script>
